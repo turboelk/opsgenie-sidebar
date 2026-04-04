@@ -1,38 +1,53 @@
 {
-    "extName": {
-        "message": "Opsgenie Sidebar"
-    },
-    "extDescription": {
-        "message": "Monitoring made simple - monitor your opsgenie alerts through a sidebar in your browser. Allows multiple sidebars open without polling the API too frequently."
-    },
-    "popupApiKeyEmpty": {
-        "message": "API Key is missing. Please enter a valid API key on the extensions setting page."
-    },
-    "extensionDisabled": {
-        "message": "Extension disabled. Enable the extension in the settings tab."
-    },
-    "clientFailure": {
-        "message": "Client failure, will retry $TIMEINTERVAL$ minutes.\nReason: $ERROR$",
-        "placeholders": {
-            "timeinterval": {
-                "content": "$1"
-            },
-            "error": {
-                "content": "$2"
-            }
+  "extName": {
+    "message": "Pager Duty Sidebar"
+  },
+  "extDescription": {
+    "message": "Monitoring made simple - monitor your PagerDuty alerts through a sidebar in your browser. Allows multiple sidebars open without polling the API too frequently."
+  },
+  "popupApiKeyEmpty": {
+    "message": "API Key is missing. Please enter a valid API key on the extensions setting page."
+  },
+  "extensionDisabled": {
+    "message": "Extension disabled. Enable the extension in the settings tab."
+  },
+  "clientFailure": {
+    "message": "Client failure, will retry $TIMEINTERVAL$ minutes.\nReason: $ERROR$",
+    "placeholders": {
+        "timeinterval": {
+          "content": "$1"
+        },
+        "error": {
+          "content": "$2"
         }
-    },
-    "networkFailure": {
-        "message": "Network failure, will retry in $TIMEINTERVAL$ minutes.\nReason: $ERROR$",
-        "placeholders": {
-            "timeinterval": {
-                "content": "$1"
-            },
-            "error": {
-                "content": "$2"
-            }
+    }
+  },
+  "networkFailure": {
+    "message": "Network failure, will retry in $TIMEINTERVAL$ minutes.\nReason: $ERROR$",
+    "placeholders": {
+        "timeinterval": {
+            "content": "$1"
+        },
+        "error": {
+            "content": "$2"
         }
-    },
+    }
+  },
+	"clear": {
+		"message": "Clear"
+	},
+	"start": {
+		"message": "Start"
+	},
+	"stop": {
+		"message": "Stop"
+	},
+	"stopped": {
+		"message": "Stopped"
+	},
+	"running": {
+		"message": "Running"
+	},
 	"options": {
 		"message": "Options"
 	},
@@ -42,85 +57,85 @@
 	"control": {
         "message": "Controls"
     },
-	"start": {
-        "message": "Start"
-    },
-    "noData": {
-        "message": "You're all done. Hooray for you! \\o/"
-    },
-    "settings": {
-        "message": "Settings"
-    },
-    "refresh": {
-        "message": "Refresh"
-    },
-    "interval": {
-        "message": "Interval (ms)"
-    },
-    "enable": {
-        "message": "Enabled"
-    },
-    "optionsTitle": {
-        "message": "Opsgenie Notifier - Options"
-    },
-    "optionsEnabled": {
-        "message": "Enable Extension"
-    },
-    "optionsNotificationsEnabled": {
-        "message": "Enable Notifications"
-    },
-    "optionsAlertActionsEnabled": {
-        "message": "Enable alert actions"
-    },
-    "optionsRegion": {
-        "message": "Region"
-    },
-    "optionsCustomerName": {
-        "message": "Customer (Optional)"
-    },
-    "optionsUsername": {
-        "message": "Username for Alert actions"
-    },
-    "optionsApiKey": {
-        "message": "API Key"
-    },
-    "optionsApiKeyHelp": {
-        "message": "(Help)"
-    },
-    "optionsAlertQuery": {
-        "message": "Alert Query"
-    },
-    "optionsTimeInterval": {
-        "message": "Time Interval (minutes)"
-    },
-    "optionPopupHeight": {
-        "message": "Popup Height (px)"
-    },
-    "optionsButtonSave": {
-        "message": "Speichern"
-    },
-    "optionsSaved": {
-        "message": "Saved successfully, badge will be refreshed now!"
-    },
-    "optionsPermissionDenied": {
-        "message": "Please grant permission to extension for receive alerts and using notifications."
-    },
-    "popupAlertActionAck": {
-        "message": "[ACK]"
-    },
-    "popupAlertActionClose": {
-        "message": "[CLOSE]"
-    },
-    "popupLoading": {
-        "message": "Loading ..."
-    },
-    "popupLastUpdated": {
-        "message": "Last updated"
-    },
-    "popupSeeAllAlerts": {
-        "message": "see all alerts"
-    },
-    "popupNoAlerts": {
-        "message": "There are no alerts."
-    }
+  "noData": {
+      "message": "You're all done. Hooray for you! \\o/"
+  },
+  "settings": {
+      "message": "Settings"
+  },
+  "refresh": {
+      "message": "Refresh"
+  },
+  "interval": {
+      "message": "Interval (ms)"
+  },
+  "enable": {
+      "message": "Enabled"
+  },
+  "optionsTitle": {
+      "message": "PagerDuty Notifier - Options"
+  },
+  "optionsEnabled": {
+      "message": "Enable Extension"
+  },
+  "optionsNotificationsEnabled": {
+      "message": "Enable Notifications"
+  },
+  "optionsAlertActionsEnabled": {
+      "message": "Enable alert actions"
+  },
+  "optionsRegion": {
+      "message": "Region"
+  },
+  "optionsCustomerName": {
+      "message": "Customer (Optional)"
+  },
+  "optionsUsername": {
+      "message": "Username for Alert actions"
+  },
+  "optionsApiKey": {
+      "message": "API Key"
+  },
+  "optionsApiKeyHelp": {
+      "message": "(Help)"
+  },
+  "optionsAlertQuery": {
+      "message": "Alert Query"
+  },
+  "optionsIncidentQuery": {
+    "message": "Incident Query"
+  },
+  "optionsTimeInterval": {
+      "message": "Time Interval (ms)"
+  },
+  "optionPopupHeight": {
+      "message": "Popup Height (px)"
+  },
+  "optionsButtonSave": {
+      "message": "Save"
+  },
+  "optionsSaved": {
+      "message": "Saved successfully, badge will be refreshed now!"
+  },
+  "optionsPermissionDenied": {
+      "message": "Please grant permission to extension for receive alerts and using notifications."
+  },
+  "popupAlertActionAck": {
+      "message": "[ACK]"
+  },
+  "popupAlertActionClose": {
+      "message": "[CLOSE]"
+  },
+  "popupLoading": {
+      "message": "Loading ..."
+  },
+  "popupLastUpdated": {
+      "message": "Last updated"
+  },
+  "popupSeeAllAlerts": {
+      "message": "see all alerts"
+  },
+  "popupNoAlerts": {
+      "message": "There are no alerts."
+  }
 }

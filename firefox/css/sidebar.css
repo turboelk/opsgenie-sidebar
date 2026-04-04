@@ -1,7 +1,11 @@
-body {
+html, body {
   font-family: Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
   font-size: 14px;
-  padding: 10px;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  height: 100vh;
+  min-height: 100vh;
 }
 
 h1 {
@@ -13,40 +17,181 @@ ul {
   padding: 0;
 }
 
-li {
+p, h1, span, h2, legend {
+	cursor: default;
+}
+
+input {
+	cursor: pointer;
 }
 
 li > p {
   margin-bottom: 10px;
 }
 
-.alert {
-  display: block;
-  cursor: default;
+main {
+	background: #F4F5F7;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
-.alert::selection,
-.alert *::selection {
+main > h1 {
+	height: 1.5rem;
+}
+
+.messages {
+	margin-bottom: auto;
+}
+
+.log,
+.messages,
+.tasks {
+	background: white;
+	border-top: 1px solid #DFE1E6;
+	border-bottom: 1px solid #DFE1E6;
+	padding-left: 0.5rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+.controls {
+	border-top: 1px solid #DFE1E6;
+}
+
+.log > h2,
+.messages > h2,
+.tasks > h2,
+.checks > h2 {
+	font-size: 0.75rem;
+	font-family: monospace;
+	text-transform: uppercase;
+	padding-left: 1rem;
+}
+
+.message {
+	display: block;
+	cursor: default;
+}
+
+.text {
+	padding-left: 0.5rem;
+}
+
+.checks ul {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: stretch;
+	flex-wrap: nowrap;
+	align-content: stretch;
+	height: 2rem;
+}
+
+.check {
+	border-right: 1px solid #DFE1E6;
+}
+
+.check:last-child {
+	border-right: none;
+}
+
+.check.severity {
+	height: 100%;
+	flex: 1;
+}
+
+.check a {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+.check.severity.info {
+	background: green;
+}
+.check.severity.warn {
+	background: orange;
+}
+.check.severity.error {
+	background: rgba(from red r g b /0.5);
+}
+.check.severity.fatal {
+	background: red;
+}
+
+
+.message .text {
+  cursor: pointer;
+}
+
+h1::selection,
+h2::selection,
+p::selection,
+a::selection,
+span::selection,
+.text::selection,
+.message::selection,
+.message *::selection {
   background: none;
 }
 
-.alert p {
+.message p {
   text-wrap: nowrap;
   margin: 0.25rem 0;
 }
 
+/*
+// TODO
+input {}
+.tasks.notes {}
+.notes .control {
+	display: flex;
+	width: 100%;
+	gap: 0px;
+}
+
+.notes .control .text {
+	flex: 0.98;
+}
+
+.notes .control .submit {
+	flex: 0 0 auto;
+	width: auto;
+	border: none;
+}
+
+.notes .control input {
+	border: none;
+}
+*/
+
+@keyframes flash {
+	from {
+		background: rgba(from #091E42 r g b /0.2);
+	}
+	
+	to {
+		background: default;
+	}
+}
+
 .message {
-  text-decoration: none;
   margin-bottom: 0.25rem;
   text-wrap: nowrap;
 }
 
-.alert > p > * {
+.message .text {
+  text-decoration: none;
+  animation: 2s 1 normal flash;
+}
+
+.message > p > * {
   display: inline-block;
 }
 
-.alert:hover .message {
-  background: lightgray;
+.message:hover .text {
+  background: rgba(from #091E42 r g b /0.2);
 }
 
 .badge,
@@ -78,8 +223,27 @@ li > p {
   box-shadow: 1px 2px 7px 0px rgba(0,0,0,0.24);
 }
 
+.badge.action.disabled:hover {
+  cursor: default;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.badge.action.disabled:active {
+  cursor: default;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.badge.action.disabled {
+  background: rgba(7, 71, 106, 0.07);
+  color: #42526E47
+}
+
 .badge.mono {
-  width: 20px;
+  width: 40px;
   line-height: 20px;
   text-align: center;
   vertical-align: top;
@@ -103,6 +267,7 @@ li > p {
 
 .badge.red {
 	background: #BF2600;
+  color: white;
 }
 
 .badge.yellow {
@@ -111,6 +276,7 @@ li > p {
 
 .badge.green {
 	background: green;
+  color: white;
 }
 
 .message {
@@ -120,6 +286,7 @@ li > p {
 
 .tiny {
   font-size: 0.75rem;
+  color: white;
 }
 
 /* Status reporting */
@@ -129,7 +296,7 @@ li > p {
   font-style: ;
   font-variant: small-caps;
   padding: 0.25rem 0.5rem;
-  background: red;
+  background: #db5a5a;
   border-radius: 2.5px;
   color: white;
   text-align: center;
@@ -137,11 +304,14 @@ li > p {
 }
 
 .status.on {
-  background: green;
+  background: #5adbb5;
 }
 
 h1 {
   display: flex;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 1rem;
 }
 
 h1 span:first-child {
@@ -149,19 +319,23 @@ h1 span:first-child {
 }
 
 /* Forms */
-fieldset {
+.controls {
   margin: 0;
   outline: none;
-  border: 1px solid lightgray;
-  border-radius: 5px;
+  padding: 0.75rem 0.5rem;
+  background: #091E42;
 }
 
-fieldset summary {
+.controls:has(+ .messages) {
+  padding-bottom: none;
+}
+
+.controls h2 {
   width: 100%;
   border: none;
 }
 
-fieldset section {
+.controls section {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -169,8 +343,41 @@ fieldset section {
   align-content: stretch;
 }
 
-fieldset input:not(:last-child) {
+.controls .tiny:first-child {
+	margin-right: auto;
+}
+
+.controls input[type="button"] {
+	background: rgba(255, 255, 255, 0.2);
+	color: white;
+	outline: none;
+	border: none;
+	padding: 4px 8px;
+	text-transform: capitalize;
+}
+
+.controls input[type="button"]:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+.controls input[type="button"]:active {
+	background: rgba(255, 255, 255, 0.4);
+}
+
+.controls input:not(:last-child) {
   margin-right: 0.5em;
+}
+
+input[type="button"].error {
+	background: #db5a5a;
+}
+
+input[type="button"].warn {
+	background: #dbdb5a;
+}
+
+input[type="button"].ok {
+	background: #5adbb5;
 }
 
 /* Tooltips s*/

@@ -2,7 +2,6 @@
 firefox:
 	@rm -rf chrome
 	@cp -r firefox chrome
-	@jq --indent 4 '. + {"developer": {"name": "Jan-Otto Kröpke", "url":"https://github.com/jkroepke"},"background": {"scripts": ["background.js"],"type": "module"},"browser_specific_settings": {"gecko": {"id": "opsgenie-notifier@jkroepke.de","strict_min_version": "115.0"}}}' chrome/manifest.json > firefox/manifest.json
 	@git add firefox
 
 .PHONY: all

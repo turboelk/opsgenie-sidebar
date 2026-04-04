@@ -1,30 +1,33 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "__MSG_extName__",
   "version": "1.0",
   "description": "__MSG_extDescription__",
-  "homepage_url": "https://turboelk.com/opsgenie",
+  "homepage_url": "https://turboelk.com/pagerduty",
   "default_locale": "en",
   "icons": {
   },
   "permissions": [
-	"storage"
+    "https://*.pagerduty.com/*",
+    "https://api-asm1.apica.io/v3/*",
+    "*://api.eu.pagerduty.com/*",
+    "https://pagerduty.com/*",
+    "storage",
+    "webRequest",
+    "tabs"
   ],
-  "host_permissions": [
-	"https://*.opsgenie.com/*"
-  ],
-  "content_security_policy": {
-    "extension_pages": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://api.opsgenie.com https://api.eu.opsgenie.com;"
-  },
+  
+  "content_security_policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://api.pagerduty.com https://api.eu.pagerduty.com  https://betssongroup.eu.pagerduty.com;",
+
   "options_ui": {
     "open_in_tab": false,
     "page": "options.html"
   },
   "background": {
     "scripts": [
+        "js/lib/browser-polyfill.js",
         "js/background.js"
-    ],
-    "type": "module"
+    ]
   },
   "sidebar_action": {
     "default_title": "__MSG_extName__",
@@ -42,7 +45,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "opsgenie-sidebar@turboelk.com"
+      "id": "pagerduty-sidebar@turboelk.com"
     }
   }
 }

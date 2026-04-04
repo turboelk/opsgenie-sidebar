@@ -11,30 +11,19 @@
 <form id="options">
     <label for="enabled"></label>
     <input type="checkbox" name="enabled" id="enabled" checked>
-    <label for="notifications"></label>
-    <input type="checkbox" name="notifications" id="notifications" checked>
-    <label for="actions"></label>
-    <input type="checkbox" name="actions" id="actions" checked>
-    <label for="region"></label>
-    <select id="region">
-        <option>US</option>
-        <option selected>EU</option>
-    </select>
-    <label for="customer-name"></label>
-    <input type="text" id="customer-name">
-    <label for="api-key"></label>
-    <input type="password" id="api-key" required>
-    <label for="username"></label>
-    <input type="text" id="username">
-    <label for="query"></label>
-    <textarea type="text" rows="2" id="query" placeholder="eg. acknowledged: false AND isSeen: false"></textarea>
+    <label for="region">The base URL of your backend</label>
+    <input type="text" id="region" required>
+
+    <label for="token"></label>
+    <input type="password" id="token" required>
+	<label for="email"></label>
+	<input type="email" id="email" required>
     <label for="time-interval"></label>
-    <input type="number" id="time-interval" min="1" max="60" value="5">
-    <label for="popup-height"></label>
-    <input type="number" id="popup-height" min="100" value="300">
+    <input type="number" id="time-interval" min="1000" max="60000" value="5000">
     <button type="submit" id="submit"></button>
-    <div id="form-alert"></div>
+    <div id="error"></div>
 </form>
+<script src="js/lib/browser-polyfill.js" type="module"></script>
 <script src="js/options.js" type="module"></script>
 </body>
 </html>
