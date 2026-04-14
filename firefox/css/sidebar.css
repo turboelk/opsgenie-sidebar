@@ -141,27 +141,23 @@ span::selection,
   margin: 0.25rem 0;
 }
 
-/*
-// TODO
-input {}
-.tasks.notes {}
-.notes .control {
+.note .control {
 	display: flex;
 	width: 100%;
 	gap: 0px;
 }
 
-.notes .control .text {
+.note .control .text {
 	flex: 0.98;
 }
 
-.notes .control .submit {
+.note .control .submit {
 	flex: 0 0 auto;
 	width: auto;
 	border: none;
 }
 
-.notes .control input {
+.note .control input {
 	border: none;
 }
 */
