@@ -109,8 +109,8 @@ browser.runtime.onMessage.addListener((msg, sender, respond) => {
 			  );
 			  
 		  case "merge:submit":
-			const selection = msg.merge.selection;
-			const target = msg.merge.target;
+			const selection = msg.selection.members;
+			const target = msg.selection.target;
 			const payload = {
 				source_incidents: [
 					...Object.entries(selection).map(([id, _]) => ({
@@ -131,7 +131,18 @@ browser.runtime.onMessage.addListener((msg, sender, respond) => {
 			return await put(settings, "/incidents", { incidents: [{id: msg.id, status: "resolved", type: "incident"}]});
 			
 		  case "note":
-			return await post(settings, `/incidents/${msg.id}/notes`, {note: {content: msg.value}});
+			return await Promise.all([
+				msg.selection.target 
+					&& post(settings, `/incidents/${msg.selection.target}/notes`, {note: {content: msg.value}}),
+
+				...Object
+					.entries(msg.selection.members)
+					.filter(([k, v]) => v)
+					.map(
+						([id, _]) =>
+							post(settings, `/incidents/${id}/notes`, {note: {content: msg.value}})
+					)
+			]);
 
 		  default:
 			  // handle errors...
