@@ -303,6 +303,24 @@ span::selection,
   background: #5adbb5;
 }
 
+progress {
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  width: 9.5em;
+  height: 1em;
+  background: #eee; /* track color */
+  display: block;
+}
+
+progress::-moz-progress-bar {
+  background: #db5a5a;
+}
+
+progress.ok::-moz-progress-bar {
+  background: #5adbb5;
+}
+
 h1 {
   display: flex;
   padding-left: 0.5rem;

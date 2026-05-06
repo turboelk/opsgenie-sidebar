@@ -9,7 +9,6 @@
   },
   "permissions": [
     "https://*.pagerduty.com/*",
-    "https://api-asm1.apica.io/v3/*",
     "*://api.eu.pagerduty.com/*",
     "https://pagerduty.com/*",
     "storage",
