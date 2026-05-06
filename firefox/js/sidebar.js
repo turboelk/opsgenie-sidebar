@@ -3,7 +3,8 @@ import {h, app, text} from "./lib/hyperapp.js";
 import {
     body, main, article, section, aside,
     table, thead, tbody, tfoot, tr, th, td,
-    ul, li, nav, form, h1, h2, p, a, span, img, input, fieldset, label, legend, details, summary
+    ul, li, nav, form, h1, h2, p, a, span, img, input, fieldset, label, legend, details, summary,
+	progress
 } from "./lib/hyperapp.html.js";
 import { Promisable, Spread } from "./lib/promisable.js";
 import Selection from "./Selection.js";
@@ -51,13 +52,19 @@ const transform = ({ api }) =>
 const heartbeat = () => browser.storage.session.get("heartbeat");
 const settings = () => browser.storage.sync.get(defaultSettings);
 const log = () => browser.storage.session.get("log");
+const time = () => browser.storage.session.get("time");
+const elapsed = (then) => {
+	const now = new Date();
+	return (now - then);
+};
 
 const onUpdate = (state) => [
   {...state},
   [Promisable("log"), log()],
   [Promisable("settings"), settings()],
   [Promisable("api"), api().then(transform)],
-  [Promisable("heartbeat"), heartbeat()]
+  [Promisable("heartbeat"), heartbeat()],
+  [Promisable("time"), time()]
 ];
 
 const append = (key) => (state, e) => ({
@@ -284,7 +291,7 @@ const error = ({api}) =>
         li([text(api.error)])
     ]);
 
-const render = ({api, log, note, heartbeat, selection, settings, ...r}) =>
+const render = ({time, api, log, note, heartbeat, selection, settings, ...r}) =>
     !settings && main([gt("loading")]) ||
     main([
       section({class: "controls"}, [
@@ -293,7 +300,9 @@ const render = ({api, log, note, heartbeat, selection, settings, ...r}) =>
           span({class: "tiny"}, [
             span([
               text(api.time.toLocaleString())
-            ])
+            ]),
+			
+			progress({max: settings.timeInterval, value:elapsed(api.time), class: {ok:(elapsed(api.time)/settings.timeInterval)<1.05}})
           ]),
 
 		  input({type:"button", value:selection.active? "Done": "Select", onclick:Selection.Toggle()}),
@@ -332,7 +341,7 @@ const render = ({api, log, note, heartbeat, selection, settings, ...r}) =>
 
 const dispatch = app({
     init: [
-        { heartbeat: false, note: "", selection: Selection.Default(), api: { messages: [], tasks: [], time: new Date() } },
+        { time: undefined, heartbeat: false, note: "", selection: Selection.Default(), api: { messages: [], tasks: [], time: new Date() } },
         [Promisable("log"), log()],
         [Promisable("settings"), settings()],
     ],

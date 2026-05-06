@@ -1,7 +1,5 @@
 let
-	defaultSettings, 
-	opsgenieDomain, 
-	OPSGENIE_DOMAIN, 
+	defaultSettings,
 	url, 
 	alert, 
 	alerts, 
@@ -125,7 +123,6 @@ browser.runtime.onMessage.addListener((msg, sender, respond) => {
 			  
 		  case "ack":
 			return await put(settings, "/incidents", { incidents: [{id: msg.id, status: "acknowledged", type: "incident"}]});
-			//return ack(settings, msg.id);
 			
 		  case "close":
 			return await put(settings, "/incidents", { incidents: [{id: msg.id, status: "resolved", type: "incident"}]});
@@ -188,11 +185,11 @@ const start = async (settings) => {
 	if (ids.heartbeatID)
 		clearInterval(ids.heartbeatID);
 
-  ids.intervalID = setInterval(
-      update,
-      settings.timeInterval,
-      settings
-  );
+	ids.intervalID = setInterval(
+		update,
+		settings.timeInterval,
+		settings
+	);
 	
 	ids.heartbeatID = setInterval(
 		heartbeat,
@@ -316,7 +313,7 @@ const log_clear_item = async (settings, id) => {
 
 const heartbeat = async (settings) => {
 	IO.debug("Heartbeat");
-	browser.storage.session.set({heartbeat: true});
+	browser.storage.session.set({heartbeat: true, time: new Date()});
 };
 
 const mutate = (method) => 
@@ -332,7 +329,7 @@ const mutate = (method) =>
 			}
 			
 			IO.debug(`${method}:Request`, response);
-			return response
+			return response;
 		}
 		
 		catch(exc) {

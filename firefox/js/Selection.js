@@ -1,6 +1,13 @@
 import Messaging from "./Messaging.js";
 
 export default class Selection {
+
+	static Default = () => ({
+		active: false,
+		members: {},
+		target: null
+	});
+	
 	static Toggle = () => ({selection, ...state}) => ({
 		...state,
 		selection: {
@@ -8,12 +15,6 @@ export default class Selection {
 			members: {},
 			target: null
 		}
-	});
-	
-	static Default = () => ({
-		active: false,
-		members: {},
-		target: null
 	});
 	
 	static Target = ({id}) => ({selection, ...state}) => (
@@ -36,16 +37,16 @@ export default class Selection {
 	
 	static Verify = (target_required, selection) => (
 		target_required && !selection.target && Messaging.Log("Target incident required") ||
-		!selectionCount(selection) && Messaging.Log("No selection") || true
+		!Selection.Count(selection) && Messaging.Log("No selection") || true
 	);
 	
 	static Submit = (action, target_required, log, payload={}) => ({selection, ...state}) => (
-		Selection.verify(target_required, selection) &&
+		Selection.Verify(target_required, selection) &&
 		Messaging.Send(
 			action, 
 			log, 
 			{selection, ...payload},
-			{selection: selectionDefault()}
+			{selection: Selection.Default()}
 		)
 		|| {selection, ...state}
 	);
