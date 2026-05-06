@@ -15,17 +15,27 @@ form {
 
     grid-template-rows: 2em;
     grid-template-columns: 1fr;
-    grid-gap: .8em;
+    grid-gap: 1.5em;
     padding: 1.2em;
 }
-form > label  {
+form label  {
     grid-column: labels;
     grid-row: auto;
 }
-form > input,
-form > select,
-form > textarea,
-form > button {
+
+form label input {
+	display: block;
+	width: 100%;
+	margin-top: 0.5em;
+}
+
+form label input[type="checkbox"] {
+	display: inline;
+	width: auto;
+	float: right;
+}
+
+form input {
     grid-column: controls;
     grid-row: auto;
     border: none;
@@ -34,17 +44,20 @@ form > button {
     background-color: #eee;
 }
 
-form > button {
+form input[type="button"],
+form input[type="submit"] {
     border: 0;
     background: gray;
     color: white;
 }
 
-form > button:hover {
+form input[type="button"]:hover,
+form input[type="submit"]:hover {
     cursor: pointer;
+	background: #ccc;
 }
 
-form > #form-alert {
+form #form-alert {
     grid-column: controls;
     text-align: center;
 }
