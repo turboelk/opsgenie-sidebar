@@ -317,7 +317,7 @@ const render = ({time, api, log, note, heartbeat, selection, settings, ...r}) =>
       ]),
 
       h1([
-        span([text("Pager Duty")]),
+        span([text("Activity")]),
         span({class: { status: true, on:!(!heartbeat) }}, [
           text(Status[heartbeat === true])
         ])

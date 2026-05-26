@@ -1,9 +1,9 @@
 {
   "extName": {
-    "message": "Pager Duty Sidebar"
+    "message": "PD Control Panel"
   },
   "extDescription": {
-    "message": "Monitoring made simple - monitor your PagerDuty alerts through a sidebar in your browser. Allows multiple sidebars open without polling the API too frequently."
+    "message": "Monitoring made simple - monitor your PagerDuty alerts and incidents through a sidebar in your browser. Allows multiple sidebars open without polling the API too frequently."
   },
   "popupApiKeyEmpty": {
     "message": "API Key is missing. Please enter a valid API key on the extensions setting page."
