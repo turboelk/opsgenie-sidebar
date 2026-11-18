@@ -34,8 +34,9 @@ const g = (m) => browser.i18n.getMessage(m);
 const gt = (m) => text(g(m));
 
 const api = () => browser.storage.session.get("api");
-const transform = ({ api }) =>
-	api.messages &&
+const transform = ({ api }, b, c, d) =>
+	api &&
+	api?.messages &&
 	api.messages.reduce(
 		(acc, item) => {
 			const p = Priority[item.priority] > 0? "tasks": "messages";
@@ -46,8 +47,8 @@ const transform = ({ api }) =>
 					item
 				]
 			};
-		}, { messages: [], tasks: [], time: api.time }
-	) || { messages: [], tasks: [], time: api.time };
+		}, { messages: [], tasks: [], time: api?.time || new Date() }
+	) || { messages: [], tasks: [], time: api?.time || new Date() };
 
 const heartbeat = () => browser.storage.session.get("heartbeat");
 const settings = () => browser.storage.sync.get(defaultSettings);

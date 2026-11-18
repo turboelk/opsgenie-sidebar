@@ -53,10 +53,10 @@ document
 	});
 */
 	
-const settings = () => browser.storage.sync.get(defaultSettings);
+const settings = () => browser.storage.sync.get("settings");
 const onUpdate = (state) => [
   {...state},
-  [Promisable("current"), settings()],
+  [Promisable("settings"), settings()],
 ];
 
 const control = (type) => (name, descr="", opts={}) =>
@@ -78,31 +78,35 @@ const Controls = {
 	)
 };
 
-const Submit = () => ({current, log}, event) => {
+const Submit = () => ({settings, log}, event) => {
 	event.preventDefault();
 	
 	const data = new FormData(event.target);
-	current = {
+	const _settings = {
 		...defaultSettings,
-		...current,
+		...settings,
 		...Object.fromEntries(data.entries())
-	}
+	};
 	
-	browser.storage.sync.get(current);
+	_settings.enabled = (_settings.enabled == "on" || _settings.enabled)
+		? true
+		: false;
+	
+	browser.storage.sync.set({settings:_settings});
 	
 	return {
-		current,
+		settings:_settings,
 		log: [...log, "Options saved"]
 	};
 };
 
-const render = ({current, log}) =>
+const render = ({settings, log}) =>
 	form({onsubmit: Submit()}, [
-		Controls.Checkbox("enabled", "Enable the extension?", {checked:current.enabled}),
-		Controls.Text("base_url", "The base URL of your backend", {required: true, value:current.base_url}),
-		Controls.Password("token", "Your API token", {required: true, value:current.token}),
-		Controls.Email("email", "Your e-mail", {required: true, value:current.email}),
-		Controls.Number("interval", "Milliseconds between updates", {required: true, min: 1000, max: 60000, value: current.timeInterval}),
+		Controls.Checkbox("enabled", "Enable the extension?", {checked:settings.enabled}),
+		Controls.Text("base_url", "The base URL of your backend", {required: true, value:settings.base_url}),
+		Controls.Password("token", "Your API token", {required: true, value:settings.token}),
+		Controls.Email("email", "Your e-mail", {required: true, value:settings.email}),
+		Controls.Number("interval", "Milliseconds between updates", {required: true, min: 1000, max: 60000, value: settings.timeInterval}),
 		Controls.Submit("submit", "Save", {value:"Save"}),
 		
 		log && log.length && details({open:true}, 
@@ -114,8 +118,8 @@ const render = ({current, log}) =>
 
 const dispatch = app({
 	init: [
-		{current:defaultSettings, log: []},
-		[Promisable("current"), settings()]
+		{settings:defaultSettings, log: []},
+		[Promisable("settings"), settings()]
 	],
 	view: render,
 	node: document.getElementsByTagName("main")[0]
@@ -124,11 +128,5 @@ const dispatch = app({
 browser.storage.sync.onChanged.addListener(
     async () => {
         dispatch(onUpdate)
-    }
-);
-
-browser.storage.session.onChanged.addListener(
-    async (changes) => {
-        dispatch(onUpdate);
     }
 );
