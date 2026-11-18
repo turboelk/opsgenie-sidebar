@@ -77,7 +77,7 @@ browser.runtime.onInstalled.addListener(reinstall);
 
 browser.runtime.onMessage.addListener((msg, sender, respond) => {
     (async () => {
-        const settings = await browser.storage.sync.get(defaultSettings);
+        const {settings} = await browser.storage.sync.get("settings");
 		switch(msg.action) {
 		  case "options":
 			browser.runtime.openOptionsPage();
@@ -321,7 +321,7 @@ const mutate = (method) =>
 		const url = `${settings.base_url}${endpoint}`;
 		
 		try {
-			const response = await API.Submit(method, settings.apiKey, url, body);
+			const response = await API.Submit(method, settings.token, url, body);
 			
 			if (!response.ok) {
 				const _body = await response.json();
@@ -344,7 +344,7 @@ const get = async (settings, endpoint, params) => {
 	const url = `${settings.base_url}${endpoint}`;
 	
 	try {
-		const response = await API.Request(settings.apiKey, url, params);
+		const response = await API.Request(settings.token, url, params);
 		
 		if (!response.ok) {
             const body = await response.json();
